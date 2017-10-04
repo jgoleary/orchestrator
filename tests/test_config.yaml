@@ -1,0 +1,24 @@
+tasks_base: tasks
+tasks:
+  - class: fetch_latest_file.FetchLatestFile
+    params:
+      identifier: tmp_watcher
+      recurring: True
+      schedule: 
+        on_second: 5
+      dependencies: null
+      path: /tmp
+  - class: count_lines_in_file.CountLinesInFile
+    params:
+      identifier: line_counter
+      recurring: True
+      schedule:
+        on_second: 7
+      dependencies: 
+        - tmp_watcher
+  - class: count_lines_in_file.CountLinesInFile
+    params:
+      identifier: non_recurring_line_counter
+      recurring: False
+      schedule: null
+      dependencies: null
